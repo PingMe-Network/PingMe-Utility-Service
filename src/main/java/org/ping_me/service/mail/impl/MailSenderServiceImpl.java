@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -39,6 +40,7 @@ public class MailSenderServiceImpl implements MailSenderService {
     String timeout;
 
     @Override
+    @Async("mailTaskExecutor")
     public void sendOtp(SendOtpRequest request) {
         validateRequest(request);
 
@@ -57,12 +59,11 @@ public class MailSenderServiceImpl implements MailSenderService {
             helper.setSubject("OTP Verification");
             helper.setText(htmlContent, true);
             javaMailSender.send(mime);
+            log.info("OTP mail sent successfully to {}", request.getToMail());
         } catch (MessagingException e) {
             log.error("Mail send failed while preparing message for {}", request.getToMail(), e);
-            throw new IllegalStateException("Failed to prepare OTP mail", e);
         } catch (RuntimeException e) {
             log.error("Mail send failed for {}", request.getToMail(), e);
-            throw e;
         }
     }
 
