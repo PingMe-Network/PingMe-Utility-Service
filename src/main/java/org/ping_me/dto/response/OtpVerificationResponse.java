@@ -1,4 +1,4 @@
-package phatdang.ping_me.dto.response;
+package org.ping_me.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
