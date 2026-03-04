@@ -1,4 +1,4 @@
-package phatdang.ping_me.dto.response;
+package org.ping_me.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
@@ -16,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiResponse <T>{
+public class ApiResponse<T> {
     Integer errorCode;
     String errorMessage;
     T data;

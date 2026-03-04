@@ -1,6 +1,6 @@
-package phatdang.ping_me.service.mail;
+package org.ping_me.service.mail;
 
-import phatdang.ping_me.dto.request.SendOtpRequest;
+import org.ping_me.dto.request.SendOtpRequest;
 
 /**
  * @author : user664dntp

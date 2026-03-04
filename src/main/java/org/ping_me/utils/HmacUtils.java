@@ -1,4 +1,4 @@
-package phatdang.ping_me.utils;
+package org.ping_me.utils;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
