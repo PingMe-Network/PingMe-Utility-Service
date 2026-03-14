@@ -4,15 +4,15 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.ping_me.dto.request.SendOtpRequest;
+import org.ping_me.dto.response.ApiResponse;
+import org.ping_me.service.MailSenderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ping_me.dto.request.SendOtpRequest;
-import org.ping_me.dto.response.ApiResponse;
-import org.ping_me.service.MailSenderService;
 
 /**
  * @author : user664dntp
