@@ -1,4 +1,4 @@
-package org.ping_me.service.mail.impl;
+package org.ping_me.service.impl;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.ping_me.dto.request.SendOtpRequest;
-import org.ping_me.service.mail.MailSenderService;
+import org.ping_me.service.MailSenderService;
 
 /**
  * @author : user664dntp

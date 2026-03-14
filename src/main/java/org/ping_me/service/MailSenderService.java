@@ -1,4 +1,4 @@
-package org.ping_me.service.mail;
+package org.ping_me.service;
 
 import org.ping_me.dto.request.SendOtpRequest;
 

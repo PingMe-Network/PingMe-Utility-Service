@@ -1,4 +1,4 @@
-package org.ping_me.controller.mail;
+package org.ping_me.controller;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.ping_me.dto.request.SendOtpRequest;
 import org.ping_me.dto.response.ApiResponse;
-import org.ping_me.service.mail.MailSenderService;
+import org.ping_me.service.MailSenderService;
 
 /**
  * @author : user664dntp
