@@ -1,4 +1,4 @@
-package org.ping_me.utils;
+package org.ping_me.filter;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

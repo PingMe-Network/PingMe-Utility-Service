@@ -1,18 +1,18 @@
-package org.ping_me.controller.mail;
+package org.ping_me.controller;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.ping_me.dto.request.SendOtpRequest;
+import org.ping_me.dto.response.ApiResponse;
+import org.ping_me.service.MailSenderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.ping_me.dto.request.SendOtpRequest;
-import org.ping_me.dto.response.ApiResponse;
-import org.ping_me.service.mail.MailSenderService;
 
 /**
  * @author : user664dntp
@@ -39,9 +39,9 @@ public class MailSenderController {
 
         try {
             mailSenderService.sendOtp(request);
-            return ResponseEntity.ok(ApiResponse.<Boolean>builder()
-                    .errorCode(HttpStatus.OK.value())
-                    .errorMessage(HttpStatus.OK.name())
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(ApiResponse.<Boolean>builder()
+                    .errorCode(HttpStatus.ACCEPTED.value())
+                    .errorMessage("OTP mail request accepted")
                     .data(true)
                     .build());
         } catch (IllegalArgumentException e) {
@@ -52,10 +52,10 @@ public class MailSenderController {
                     .data(false)
                     .build());
         } catch (Exception e) {
-            log.error("Failed to send OTP mail to {}", request.getToMail(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.<Boolean>builder()
-                    .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                    .errorMessage("Failed to send OTP mail")
+            log.error("Failed to queue OTP mail for {}", request.getToMail(), e);
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ApiResponse.<Boolean>builder()
+                    .errorCode(HttpStatus.SERVICE_UNAVAILABLE.value())
+                    .errorMessage("Failed to queue OTP mail")
                     .data(false)
                     .build());
         }

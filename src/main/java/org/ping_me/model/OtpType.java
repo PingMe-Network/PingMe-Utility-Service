@@ -1,4 +1,4 @@
-package org.ping_me.model.constant;
+package org.ping_me.model;
 
 import lombok.Getter;
 

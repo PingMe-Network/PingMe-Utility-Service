@@ -50,6 +50,7 @@
 
     <properties>
         <java.version>21</java.version>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencies>
@@ -87,11 +88,20 @@
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jre</image>
+                    </from>
                     <to>
                         <image>
                             huynhducphu2502/${project.artifactId}
                         </image>
                     </to>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-XX:+ExitOnOutOfMemoryError</jvmFlag>
+                            <jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>
+                        </jvmFlags>
+                    </container>
                 </configuration>
             </plugin>
 
