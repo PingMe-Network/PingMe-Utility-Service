@@ -2,7 +2,7 @@ package org.ping_me.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.ping_me.model.OtpType;
+import org.ping_me.model.AuthOtpType;
 
 /**
  * @author : user664dntp
@@ -18,5 +18,5 @@ import org.ping_me.model.OtpType;
 public class SendOtpRequest {
     String toMail;
     String otp;
-    OtpType otpType;
+    AuthOtpType authOtpType;
 }

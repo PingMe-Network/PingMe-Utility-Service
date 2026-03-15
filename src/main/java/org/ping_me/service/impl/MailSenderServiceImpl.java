@@ -77,13 +77,13 @@ public class MailSenderServiceImpl implements MailSenderService {
         if (request.getOtp() == null || request.getOtp().isBlank()) {
             throw new IllegalArgumentException("OTP is required");
         }
-        if (request.getOtpType() == null) {
+        if (request.getAuthOtpType() == null) {
             throw new IllegalArgumentException("OTP type is required");
         }
     }
 
     private String resolveTemplate(SendOtpRequest request) {
-        return switch (request.getOtpType()) {
+        return switch (request.getAuthOtpType()) {
             case ADMIN_VERIFICATION -> "mail/admin-otp-verification.html";
             case USER_FORGET_PASSWORD -> "mail/forget-password-otp-verification.html";
             case ACCOUNT_ACTIVATION -> "mail/active-account-otp-verification.html";
