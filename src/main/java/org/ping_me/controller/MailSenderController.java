@@ -29,7 +29,7 @@ public class MailSenderController {
 
     @PostMapping("/admin-otp-verification")
     ResponseEntity<ApiResponse<Boolean>> sendOtpToAdmin(@RequestBody SendOtpRequest request) {
-        if (request == null || request.getToMail() == null || request.getOtp() == null || request.getOtpType() == null) {
+        if (request == null || request.getToMail() == null || request.getOtp() == null || request.getAuthOtpType() == null) {
             return ResponseEntity.badRequest().body(ApiResponse.<Boolean>builder()
                     .errorCode(HttpStatus.BAD_REQUEST.value())
                     .errorMessage("Missing required mail payload")
