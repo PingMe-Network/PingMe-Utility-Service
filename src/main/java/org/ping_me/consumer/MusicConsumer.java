@@ -28,7 +28,7 @@ public class MusicConsumer {
 
     @KafkaListener(
             topics = "${spring.kafka.topic.listen-music-dev}",
-            groupId = "ping-me-audit-group-v2",
+            groupId = "${spring.kafka.consumer.group-id}",
             containerFactory = "kafkaListenerContainerFactory"
     )
     public void consumeMusic(String message) {
