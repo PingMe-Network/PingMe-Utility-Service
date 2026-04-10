@@ -1,22 +1,22 @@
-package org.ping_me.dto.request;
+package org.ping_me.dto.event;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.ping_me.model.enums.AuthOtpType;
 
 /**
  * @author : user664dntp
  * @mailto : phatdang19052004@gmail.com
- * @created : 18/01/2026, Sunday
+ * @created : 9/04/2026, Thursday
  **/
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class SendOtpRequest {
-    String toMail;
-    String otp;
-    AuthOtpType authOtpType;
+public class UserChatEvent {
+    Long senderId;
+    String message;
+    long timestamp;
 }

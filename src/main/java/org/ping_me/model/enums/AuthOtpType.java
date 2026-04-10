@@ -1,4 +1,4 @@
-package org.ping_me.model;
+package org.ping_me.model.enums;
 
 import lombok.Getter;
 
