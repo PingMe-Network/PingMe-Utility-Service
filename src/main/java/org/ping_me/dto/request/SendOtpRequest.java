@@ -2,7 +2,7 @@ package org.ping_me.dto.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.ping_me.model.AuthOtpType;
+import org.ping_me.model.enums.AuthOtpType;
 
 /**
  * @author : user664dntp
