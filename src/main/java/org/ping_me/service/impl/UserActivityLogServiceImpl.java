@@ -37,6 +37,7 @@ public class UserActivityLogServiceImpl implements UserActivityLogService {
     public void saveChatLog(UserChatEvent event) {
         var log = UserActivityLog.builder()
                 .userId(event.getSenderId())
+                .userName(event.getSenderName())
                 .type(ActivityType.CHAT)
                 .messageContent(event.getMessage())
                 .timestamp(Instant.ofEpochMilli(event.getTimestamp()))
@@ -46,6 +47,8 @@ public class UserActivityLogServiceImpl implements UserActivityLogService {
     public void saveMusicLog(MusicListeningEvent event) {
         var log = UserActivityLog.builder()
                 .songId(event.getSongId())
+                .songTitle(event.getSongTitle())
+                .artistName(event.getArtistName())
                 .type(ActivityType.MUSIC)
                 .timestamp(Instant.ofEpochMilli(event.getTimestamp()))
                 .build();
