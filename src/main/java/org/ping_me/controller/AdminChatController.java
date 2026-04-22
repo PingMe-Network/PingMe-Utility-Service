@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopUserResponse;
 import org.ping_me.model.UserActivityLog;
 import org.ping_me.service.AdminChatService;
 import org.springframework.data.domain.Page;
@@ -75,6 +76,22 @@ public class AdminChatController {
                 Instant.ofEpochMilli(finalStart),
                 Instant.ofEpochMilli(finalEnd),
                 pageRequest
+        ));
+    }
+
+    @GetMapping("/top-users")
+    public ResponseEntity<List<TopUserResponse>> getTopUsers(
+            @RequestParam(required = false) Long start,
+            @RequestParam(required = false) Long end,
+            @RequestParam(defaultValue = "5") int limit) {
+
+        long finalStart = (start != null) ? start : 0L;
+        long finalEnd = (end != null) ? end : Instant.now().toEpochMilli();
+
+        return ResponseEntity.ok(adminChatService.getTopChatUsers(
+                Instant.ofEpochMilli(finalStart),
+                Instant.ofEpochMilli(finalEnd),
+                limit
         ));
     }
 }

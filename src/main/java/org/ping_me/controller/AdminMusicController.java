@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopSongResponse;
 import org.ping_me.model.UserActivityLog;
 import org.ping_me.service.AdminMusicService;
 import org.springframework.data.domain.Page;
@@ -75,6 +76,22 @@ public class AdminMusicController {
                 Instant.ofEpochMilli(finalStart),
                 Instant.ofEpochMilli(finalEnd),
                 pageRequest
+        ));
+    }
+
+    @GetMapping("/top-songs")
+    public ResponseEntity<List<TopSongResponse>> getTopSongs(
+            @RequestParam(required = false) Long start,
+            @RequestParam(required = false) Long end,
+            @RequestParam(defaultValue = "5") int limit) {
+
+        long finalStart = (start != null) ? start : 0L;
+        long finalEnd = (end != null) ? end : Instant.now().toEpochMilli();
+
+        return ResponseEntity.ok(adminMusicService.getTopSongs(
+                Instant.ofEpochMilli(finalStart),
+                Instant.ofEpochMilli(finalEnd),
+                limit
         ));
     }
 }
