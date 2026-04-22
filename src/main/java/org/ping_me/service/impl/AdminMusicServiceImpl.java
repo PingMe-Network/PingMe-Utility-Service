@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopSongResponse;
 import org.ping_me.model.UserActivityLog;
 import org.ping_me.model.enums.ActivityType;
 import org.ping_me.repository.UserActivityLogRepository;
@@ -58,6 +59,34 @@ public class AdminMusicServiceImpl implements AdminMusicService {
 
         AggregationResults<DailyTrendResponse> results = mongoTemplate.aggregate(
                 aggregation, UserActivityLog.class, DailyTrendResponse.class
+        );
+
+        return results.getMappedResults();
+    }
+
+    @Override
+    public List<TopSongResponse> getTopSongs(Instant start, Instant end, int limit) {
+        Criteria criteria = Criteria.where("type").is(ActivityType.MUSIC)
+                .andOperator(
+                        Criteria.where("timestamp").gte(start),
+                        Criteria.where("timestamp").lte(end),
+                        Criteria.where("songId").exists(true)
+                );
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(criteria),
+                Aggregation.group("songId")
+                        .count().as("playCount")
+                        .first("songTitle").as("songTitle")
+                        .first("artistName").as("artistName"),
+                Aggregation.project("playCount", "songTitle", "artistName")
+                        .and("_id").as("songId"),
+                Aggregation.sort(Sort.Direction.DESC, "playCount"),
+                Aggregation.limit(limit)
+        );
+
+        AggregationResults<TopSongResponse> results = mongoTemplate.aggregate(
+                aggregation, UserActivityLog.class, TopSongResponse.class
         );
 
         return results.getMappedResults();

@@ -1,6 +1,7 @@
 package org.ping_me.service;
 
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopSongResponse;
 import org.ping_me.model.UserActivityLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface AdminMusicService {
     long getTotalMusicCount(Instant start, Instant end);
     Page<UserActivityLog> getRecentMusicLogs(Instant start, Instant end, Pageable pageable);
     List<DailyTrendResponse> getMusicDailyTrend(Instant start, Instant end);
+
+    List<TopSongResponse> getTopSongs(Instant start, Instant end, int limit);
 }
