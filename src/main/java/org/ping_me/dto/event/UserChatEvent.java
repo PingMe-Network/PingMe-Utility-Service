@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class UserChatEvent {
     Long senderId;
+    String senderName;
     String message;
     long timestamp;
 }
