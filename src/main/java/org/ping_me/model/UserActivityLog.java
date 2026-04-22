@@ -22,16 +22,21 @@ import java.time.Instant;
 @Builder
 public class UserActivityLog {
     @Id
-    private String id;
+    String id;
 
-    private Long userId;
+    Long userId;
 
-    private ActivityType type;
-    private String actionDetail;
+    ActivityType type;
+    String actionDetail;
 
-    private String messageContent;
-    private Long songId;
-    private String email;
+    String messageContent;
+    Long songId;
+    String email;
 
-    private Instant timestamp;
+    Instant timestamp;
+
+    String songTitle;
+    String artistName;
+
+    String userName;
 }
