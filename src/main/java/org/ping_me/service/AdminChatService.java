@@ -1,6 +1,7 @@
 package org.ping_me.service;
 
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopUserResponse;
 import org.ping_me.model.UserActivityLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,5 @@ public interface AdminChatService {
     long getTotalChatCount(Instant start, Instant end);
     Page<UserActivityLog> getRecentChatLogs(Instant start, Instant end, Pageable pageable);
     List<DailyTrendResponse> getChatDailyTrend(Instant start, Instant end);
+    List<TopUserResponse> getTopChatUsers(Instant start, Instant end, int limit);
 }

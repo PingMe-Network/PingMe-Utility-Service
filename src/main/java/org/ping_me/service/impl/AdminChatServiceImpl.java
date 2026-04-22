@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.ping_me.dto.response.DailyTrendResponse;
+import org.ping_me.dto.response.TopUserResponse;
 import org.ping_me.model.UserActivityLog;
 import org.ping_me.model.enums.ActivityType;
 import org.ping_me.repository.UserActivityLogRepository;
@@ -60,6 +61,33 @@ public class AdminChatServiceImpl implements AdminChatService {
 
         AggregationResults<DailyTrendResponse> results = mongoTemplate.aggregate(
                 aggregation, UserActivityLog.class, DailyTrendResponse.class
+        );
+
+        return results.getMappedResults();
+    }
+
+    @Override
+    public List<TopUserResponse> getTopChatUsers(Instant start, Instant end, int limit) {
+        Criteria criteria = Criteria.where("type").is(ActivityType.CHAT)
+                .andOperator(
+                        Criteria.where("timestamp").gte(start),
+                        Criteria.where("timestamp").lte(end),
+                        Criteria.where("userId").exists(true)
+                );
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(criteria),
+                Aggregation.group("userId")
+                        .count().as("messageCount")
+                        .first("userName").as("userName"),
+                Aggregation.project("messageCount", "userName")
+                        .and("_id").as("userId"),
+                Aggregation.sort(Sort.Direction.DESC, "messageCount"),
+                Aggregation.limit(limit)
+        );
+
+        AggregationResults<TopUserResponse> results = mongoTemplate.aggregate(
+                aggregation, UserActivityLog.class, TopUserResponse.class
         );
 
         return results.getMappedResults();
